@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Desklad Advent
+{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'css/style-roulette.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+
+
+{% endblock %}
+<script>
+  function copyTextToClipboard() {
+    const textElement = document.getElementById('gift-promo-code');
+    const textToCopy = textElement.textContent;
+
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        alert('Текст успешно скопирован: ' + textToCopy);
+      })
+      .catch(err => {
+        console.error('Ошибка при копировании текста:', err);
+        alert('Не удалось скопировать текст.');
+      });
+  }
+</script>
+{% block content %}
+<div id="animation-container"></div>
+<header class="header">
+    <div class="tree">
+        <img src="{% static 'img/header/header.png' %}" alt="tree" class="tree1">
+    </div>
+    <a href='{% url 'gift' %}' class="back_button">
+        <button class="back_button">
+            <img src="{% static 'img/svg/back.svg' %}" alt="Arrow Left" class="arrow-icon"> Назад
+        </button>
+    </a>
+    
+    
+    <a href="https://t.me/Sovetnik1000" target="_blank">
+        <div class="nav_header_button">
+            <button class="support_button">Поддержка</button>
+        </div>
+    </a>
+    
+    <div class="wrapper-logo">
+        <div class="header_logo">
+            <a href="/" class="header_logo_link">
+                <img src="{% static 'img/svg/logo.svg' %}" alt="LOGO" class="logo_pic">
+            </a>
+        </div>
+    </div>
+</header>
+
+<div class="content-section-wrapper">
+    <div class="wrapper-roulette">
+        <div class="app">
+            <div class="vertical-line"></div>
+            <img class="pointer-down" src="{% static 'img/png/pointer.png' %}" alt="pointer">
+            <img class="pointer-up" src="{% static 'img/png/pointer-up.png' %}" alt="pointer">
+
+            <div class="scope">
+                <ul class="list"></ul>
+            </div>
+
+            <div class="wrapper-roul">
+                <div class="text-roulette-wrapper">
+                    <h1 class="roulette_title">
+                        Нажмите на кнопку, чтобы узнать куда<br/> попала вся удача, которая не налила вам
+                        тейк
+                    </h1>
+                    <button id="startButton" onclick="start()" class="start">Получить подарок!</button>
+
+
+                
+                    <div id="bottom-frame-container" style="display: none;">
+                  <div class="bottom-frame_gift" onclick="copyTextToClipboard()">
+                      <img class="icon-roulette" src="{% static 'img/svg/copy.svg' %}" alt="Icon">
+                      <div class="bottom-text_gift" id="gift-promo-code">
+                    
+                      </div>
+                    </div>
+                        </div>
+                      </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Футер -->
+<footer class="footer">
+    <div class="snow-pic"></div>
+</footer>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  function copyTextToClipboard() {
+    const textElement = document.getElementById('gift-promo-code');
+    const textToCopy = textElement.textContent;
+
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        alert('Текст успешно скопирован: ' + textToCopy);
+      })
+      .catch(err => {
+        console.error('Ошибка при копировании текста:', err);
+        alert('Не удалось скопировать текст.');
+      });
+  }
+</script>
+
+    <script>
+        // Передаем данные подарков и количество доступных подарков в глобальную переменную
+        var giftsData = JSON.parse('{{ gifts|safe }}');
+        var availableGiftsCount = {{ available_gifts_count }};
+        console.log("Данные подарков:", giftsData);
+        console.log("Доступных подарков:", availableGiftsCount);
+    </script>
+<script src="{% static 'js/roulette.js' %}"></script>
+{% endblock %}

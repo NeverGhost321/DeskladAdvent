@@ -1,0 +1,578 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Desklad Advent
+{% endblock %}
+
+{% block extra_styles %}
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+<script>
+function copyPromoCode(code) {
+    if (!code || code.trim() === "") {
+        alert("Промокод отсутствует");
+        return;
+    }
+
+    // Создаем временное поле для копирования текста
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = code.trim(); // Устанавливаем значение как промокод, убирая лишние пробелы
+    tempInput.select(); // Выделяем текст
+    document.execCommand("copy"); // Копируем текст
+    document.body.removeChild(tempInput); // Удаляем временное поле
+
+    alert("Промокод скопирован: " + code); // Уведомление для пользователя
+
+}
+
+
+
+</script>
+
+    <script>
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                // Если страница загружена из кеша, она будет обновлена
+                window.location.reload();
+            }
+        });
+    </script>
+<script>
+// Получаем данные о времени для каждой карточки из шаблона Django
+let cardsData = [
+    { remainingHours: {{ cards_data.1.remaining_hours }}, remainingMinutes: {{ cards_data.1.remaining_minutes }}, remainingSeconds: {{ cards_data.1.remaining_seconds }} },
+    { remainingHours: {{ cards_data.2.remaining_hours }}, remainingMinutes: {{ cards_data.2.remaining_minutes }}, remainingSeconds: {{ cards_data.2.remaining_seconds }} },
+    { remainingHours: {{ cards_data.3.remaining_hours }}, remainingMinutes: {{ cards_data.3.remaining_minutes }}, remainingSeconds: {{ cards_data.3.remaining_seconds }} },
+    { remainingHours: {{ cards_data.4.remaining_hours }}, remainingMinutes: {{ cards_data.4.remaining_minutes }}, remainingSeconds: {{ cards_data.4.remaining_seconds }} },
+    { remainingHours: {{ cards_data.5.remaining_hours }}, remainingMinutes: {{ cards_data.5.remaining_minutes }}, remainingSeconds: {{ cards_data.5.remaining_seconds }} },
+    { remainingHours: {{ cards_data.6.remaining_hours }}, remainingMinutes: {{ cards_data.6.remaining_minutes }}, remainingSeconds: {{ cards_data.6.remaining_seconds }} },
+    // Добавьте данные для других карточек здесь
+];
+
+// Функция для обновления времени для каждой карточки
+function updateTime() {
+    cardsData.forEach((cardData, index) => {
+        if (cardData.remainingSeconds > 0) {
+            cardData.remainingSeconds--;
+        } else if (cardData.remainingMinutes > 0) {
+            cardData.remainingMinutes--;
+            cardData.remainingSeconds = 59;
+        } else if (cardData.remainingHours > 0) {
+            cardData.remainingHours--;
+            cardData.remainingMinutes = 59;
+            cardData.remainingSeconds = 59;
+        }
+
+        // Обновляем содержимое каждого элемента для каждой карточки
+        document.getElementById("remaining-hours-" + (index + 1)).textContent = cardData.remainingHours;
+        document.getElementById("remaining-minutes-" + (index + 1)).textContent = cardData.remainingMinutes;
+        document.getElementById("remaining-seconds-" + (index + 1)).textContent = cardData.remainingSeconds;
+    });
+}
+
+// Обновляем время каждую секунду
+setInterval(updateTime, 1000);
+</script>
+{% endblock %}
+
+{% block content %}
+
+<header class="header">
+    <div class="tree">
+        <img src="{% static 'img/header/header.png' %}" alt="tree" class="tree1">
+    </div>
+    <a href='{% url 'index' %}' class="back_button">
+        <button class="back_button">
+            <img src="{% static 'img/svg/back.svg' %}" alt="Arrow Left" class="arrow-icon"> Назад
+        </button>
+    </a>
+    
+    
+    <a href="https://t.me/Sovetnik1000" target="_blank">
+        <div class="nav_header_button">
+            <button class="support_button">Поддержка</button>
+        </div>
+    </a>
+
+    <div class="wrapper-logo">
+        <div class="header_logo">
+            <a href="/" class="header_logo_link">
+                <img src="{% static 'img/svg/logo.svg' %}" alt="LOGO" class="logo_pic">
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Контентная секция -->
+<div class="content-section">
+    <div class="cones_2"></div>
+    <div class="cones_1"></div>
+    <section class="intro">
+        <div class="wrapper">
+            <div class="title-container">
+                <h1 class="intro_title">
+                    Выигрывайте подарки<br/>каждый день!
+                </h1>
+            </div>
+        </div>
+    </section>
+
+       <!-- Секция с подарками -->
+          <!-- Секция с подарками -->
+    <section class="grid-cards-wrapper">
+    
+        <div class="wrapper-cards">
+            <div class="layout">
+                <!-- Первая карточка -->
+                <div class="card first-card">
+                    <div class="open-time-text">Откроется через:</div>
+                    <div class="frame-5">
+                        <div class="time-text">0ч : 0мин</div>
+                    </div>
+                    <img class="center-image" src="{% static 'img/cards/gift_red.png' %}" alt="Centered Image">
+
+                        <div class="bottom-text">
+                            {% if promocodes %}
+                                <!-- Если промокод есть, отображаем первый -->
+                            <div class="bottom-frame" onclick="copyPromoCode('{{ promocodes.0.code }}')">
+                                        {{ promocodes.0.code }} <!-- Выводим только код промокода -->
+                                        <img class="icon" src="{% static 'img/svg/copy.svg' %}" alt="Icon">
+                                    </div>
+
+                                                                                        
+                            {% else %}
+                                <!-- Если промокодов нет, отображаем кнопку -->
+                       
+                                <div class="button-gift" onclick="resetButtonAndRedirect('{% url 'roulette' %}')">
+                                    <span>Открыть</span>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                </div>
+                
+                <!-- Сетка с 4 карточками -->
+                <div class="grid-container">
+                   <div class="grid-item">
+                        <div class="open-time-text">Откроется через:</div>
+                        <div class="grid-frame-5">
+                           <div class="time-text">
+                    <span id="remaining-hours-1">{{ cards_data.1.remaining_hours }}</span>ч : 
+                    <span id="remaining-minutes-1">{{ cards_data.1.remaining_minutes }}</span>мин : 
+                    <span id="remaining-seconds-1">{{ cards_data.1.remaining_seconds }}</span>с
+                </div>
+                        </div>
+                        <img class="center-image" src="{% static 'img/cards/big_green.png' %}" alt="Centered Image"> <!-- Изображение подарка -->
+                        
+                        <div class="bottom-text">
+                            {% if promocodes|length > 1 %}
+                                <!-- Если второй промокод есть, отображаем второй -->
+                                           <div class="bottom-frame" onclick="copyPromoCode('{{ promocodes.1.code }}')">
+                    {{ promocodes.1.code }} <!-- Выводим только код промокода -->
+                    <img class="icon" src="{% static 'img/svg/copy.svg' %}" alt="Icon">
+                </div>
+
+         
+                            {% else %}
+                                <!-- Если второго промокода нет, проверяем доступность карточки -->
+                                {% if cards_data.1.is_available %}
+                                    <!-- Если карточка доступна, показываем кнопку "Открыть" -->
+                                    <div class="button-gift" onclick="resetButtonAndRedirect('{% url 'roulette' %}')">
+                                        <span>Открыть</span>
+                                    </div>
+                                {% else %}
+                                    <!-- Если карточка не доступна, показываем дату, когда она станет доступной -->
+                                    <div class="bottom-frame">
+                                    <div class="bottom-text">
+                                        {% if cards_data.1.available_date %}
+                                            {{ cards_data.1.available_date|date:"d.m.Y" }} <!-- Дата доступности -->
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>    
+                    
+                    
+                    
+                    <div class="grid-item">
+                        <div class="open-time-text">Откроется через:</div>
+                        <div class="grid-frame-5">
+                           <div class="time-text">
+                    <span id="remaining-hours-2">{{ cards_data.2.remaining_hours }}</span>ч : 
+                    <span id="remaining-minutes-2">{{ cards_data.2.remaining_minutes }}</span>мин : 
+                    <span id="remaining-seconds-2">{{ cards_data.2.remaining_seconds }}</span>с
+                </div>
+                        </div>
+                        <img class="center-image" src="{% static 'img/cards/gift_red.png' %}" alt="Centered Image"> <!-- Изображение подарка -->
+                        
+                        <div class="bottom-text">
+                            {% if promocodes|length > 2 %}
+                                <!-- Если второй промокод есть, отображаем второй -->
+                           <div class="bottom-frame" onclick="copyPromoCode('{{ promocodes.2.code }}')">
+    {{ promocodes.2.code }} <!-- Выводим только код промокода -->
+    <img class="icon" src="{% static 'img/svg/copy.svg' %}" alt="Icon">
+</div>
+
+         
+                            {% else %}
+                                <!-- Если второго промокода нет, проверяем доступность карточки -->
+                                {% if cards_data.2.is_available %}
+                                    <!-- Если карточка доступна, показываем кнопку "Открыть" -->
+                                    <div class="button-gift" onclick="resetButtonAndRedirect('{% url 'roulette' %}')">
+                                        <span>Открыть</span>
+                                    </div>
+                                {% else %}
+                                    <!-- Если карточка не доступна, показываем дату, когда она станет доступной -->
+                                    <div class="bottom-frame">
+                                    <div class="bottom-text">
+                                        {% if cards_data.2.available_date %}
+                                            {{ cards_data.2.available_date|date:"d.m.Y" }} <!-- Дата доступности -->
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>    
+                            
+                    <div class="grid-item">
+                        <div class="open-time-text">Откроется через:</div>
+                        <div class="grid-frame-5">
+                          <div class="time-text">
+                    <span id="remaining-hours-3">{{ cards_data.3.remaining_hours }}</span>ч : 
+                    <span id="remaining-minutes-3">{{ cards_data.3.remaining_minutes }}</span>мин : 
+                    <span id="remaining-seconds-3">{{ cards_data.3.remaining_seconds }}</span>с
+                </div>
+                        </div>
+                        <img class="center-image" src="{% static 'img/cards/light_green.png' %}" alt="Centered Image"> <!-- Изображение подарка -->
+                        
+                        <div class="bottom-text">
+                            {% if promocodes|length > 3 %}
+                                <!-- Если второй промокод есть, отображаем второй -->
+                         <div class="bottom-frame" onclick="copyPromoCode('{{ promocodes.3.code }}')">
+    {{ promocodes.3.code }} <!-- Выводим только код промокода -->
+    <img class="icon" src="{% static 'img/svg/copy.svg' %}" alt="Icon">
+</div>
+
+         
+                            {% else %}
+                                <!-- Если второго промокода нет, проверяем доступность карточки -->
+                                {% if cards_data.3.is_available %}
+                                    <!-- Если карточка доступна, показываем кнопку "Открыть" -->
+                                    <div class="button-gift" onclick="resetButtonAndRedirect('{% url 'roulette' %}')">
+                                        <span>Открыть</span>
+                                    </div>
+                                {% else %}
+                                    <!-- Если карточка не доступна, показываем дату, когда она станет доступной -->
+                                    <div class="bottom-frame">
+                                    <div class="bottom-text">
+                                        {% if cards_data.3.available_date %}
+                                            {{ cards_data.3.available_date|date:"d.m.Y" }} <!-- Дата доступности -->
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>              
+
+                    <div class="grid-item">
+                        <div class="open-time-text">Откроется через:</div>
+                        <div class="grid-frame-5">
+                                             <div class="time-text">
+                    <span id="remaining-hours-4">{{ cards_data.4.remaining_hours }}</span>ч : 
+                    <span id="remaining-minutes-4">{{ cards_data.4.remaining_minutes }}</span>мин : 
+                    <span id="remaining-seconds-4">{{ cards_data.4.remaining_seconds }}</span>с
+                </div>
+                        </div>
+                        <img class="center-image" src="{% static 'img/cards/small_dark_green.png' %}" alt="Centered Image"> <!-- Изображение подарка -->
+                        
+                        <div class="bottom-text">
+                            {% if promocodes|length > 4 %}
+                                <!-- Если второй промокод есть, отображаем второй -->
+                          <div class="bottom-frame" onclick="copyPromoCode('{{ promocodes.4.code }}')">
+    {{ promocodes.4.code }} <!-- Выводим только код промокода -->
+    <img class="icon" src="{% static 'img/svg/copy.svg' %}" alt="Icon">
+</div>
+
+                            {% else %}
+                                <!-- Если второго промокода нет, проверяем доступность карточки -->
+                                {% if cards_data.4.is_available %}
+                                    <!-- Если карточка доступна, показываем кнопку "Открыть" -->
+                                    <div class="button-gift" onclick="resetButtonAndRedirect('{% url 'roulette' %}')">
+                                        <span>Открыть</span>
+                                    </div>
+                                {% else %}
+                                    <!-- Если карточка не доступна, показываем дату, когда она станет доступной -->
+                                    <div class="bottom-frame">
+                                    <div class="bottom-text">
+                                        {% if cards_data.4.available_date %}
+                                            {{ cards_data.4.available_date|date:"d.m.Y" }} <!-- Дата доступности -->
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>                      
+                </div>
+
+            </div>
+           <!-- Третья карточка -->
+        <div class="cards-row">
+
+          <div class="card third-card">
+    <div class="open-time-text third-card">Откроется через:</div>
+    <div class="frame-5 third-card">
+        <div class="time-text">
+            <span id="remaining-hours-5">{{ cards_data.5.remaining_hours }}</span>ч : 
+            <span id="remaining-minutes-5">{{ cards_data.5.remaining_minutes }}</span>мин : 
+            <span id="remaining-seconds-5">{{ cards_data.5.remaining_seconds }}</span>с
+        </div>
+    </div>
+    <img src="{% static 'img/cards/big_red.png' %}" alt="Image" class="center-image-third-card" />
+    
+    <div class="bottom-frame third-card">
+        <span class="bottom-text-third-card">
+            {% if promocodes|length > 5 %}
+                <!-- Если второй промокод существует, выводим его -->
+        <span id="promo-code-5" onclick="copyText('{{ promocodes.5.code }}')" style="font-size: 21px;
+                                                                                                    font-family: 'Geist';
+                                                                                                    font-style: normal;
+                                                                                                    font-weight: 500;">
+    {{ promocodes.5.code }} <!-- Код седьмого промокода -->
+</span>
+
+                <img class="icon" src="{% static 'img/svg/copy.svg' %}" alt="Icon" onclick="copyText('{{ promocodes.5.code }}')">
+            {% else %}
+                <!-- Если промокод не существует, проверяем доступность карточки -->
+                {% if cards_data.5.is_available %}
+                    <!-- Если карточка доступна, показываем кнопку "Открыть" -->
+                    <div class="button-gift" onclick="resetButtonAndRedirect('{% url 'roulette' %}')">
+                        <span>Открыть</span>
+                    </div>
+                {% else %}
+                    <!-- Если карточка не доступна, показываем дату доступности -->
+                    {% if cards_data.5.available_date %}
+                        {{ cards_data.5.available_date|date:"d.m.Y" }} <!-- Дата доступности -->
+                    {% else %}
+                        Нет данных
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </span>
+    </div>
+</div>
+            
+  <div class="card fourth-card">
+    <div class="open-time-text fourth-card">Откроется через:</div>
+    <div class="frame-5 fourth-card">
+        <div class="time-text">
+            <span id="remaining-hours-6">{{ cards_data.6.remaining_hours }}</span>ч : 
+            <span id="remaining-minutes-6">{{ cards_data.6.remaining_minutes }}</span>мин : 
+            <span id="remaining-seconds-6">{{ cards_data.6.remaining_seconds }}</span>с
+        </div>
+    </div>
+    <img src="{% static 'img/cards/gift_red.png' %}" alt="Image" class="center-image-fourth-card" />
+    
+    <div class="bottom-frame fourth-card">
+        <span class="bottom-text-fourth-card">
+            {% if promocodes|length > 6 %}
+                <!-- Если седьмой промокод существует, выводим его -->
+                        <span id="promo-code-6" onclick="copyText('{{ promocodes.6.code }}')" style="font-size: 22px;
+                                                                                                    font-family: 'Geist';
+                                                                                                    font-style: normal;
+                                                                                                    font-weight: 500;">
+                            {{ promocodes.6.code }} <!-- Код седьмого промокода -->
+                        </span>
+
+                <img class="icon" src="{% static 'img/svg/copy.svg' %}" alt="Icon" onclick="copyText('{{ promocodes.6.code }}')">
+            {% else %}
+                <!-- Если промокод не существует, проверяем доступность карточки -->
+                {% if cards_data.6.is_available %}
+                    <!-- Если карточка доступна, показываем кнопку "Открыть" -->
+                    <div class="button-gift" onclick="resetButtonAndRedirect('{% url 'roulette' %}')">
+                        <span>Открыть</span>
+                    </div>
+                {% else %}
+                    <!-- Если карточка не доступна, показываем дату доступности -->
+                    {% if cards_data.6.available_date %}
+                        {{ cards_data.6.available_date|date:"d.m.Y" }} <!-- Дата доступности -->
+                    {% else %}
+                        Нет данных
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+            
+
+        </div>
+
+    </section> 
+
+    <section class="gift-section">
+        <div class="wrapper">
+            <div class="title-box">
+                <h1 class="intro_title">
+                    Подарки, которые<br>
+                    ты можешь получить
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard.png' %}" alt="card 1">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-1.png' %}" alt="card 2">
+                </div>
+            </div>
+            <!-- Дополнительные слайды... -->
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-2.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-3.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-4.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-5.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-6.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-7.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-8.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-9.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-10.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-11.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-12.png' %}" alt="card 2">
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="image-slider__image">
+                    <img src="{% static 'img/swiper/giftcard-13.png' %}" alt="card 2">
+                </div>
+            </div>
+
+        </div>
+        <div class="custom-swiper-navigation">
+            <div class="custom-swiper-button-prev">
+                <img src="{% static 'img/svg/arrow_left.svg' %}" alt="Previous Slide">
+            </div>
+            <div class="custom-swiper-button-next">
+                <img src="{% static 'img/svg/arrow_right.svg' %}" alt="Next Slide">
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- Футер -->
+<footer class="footer">
+    <div class="snow-pic"></div>
+</footer>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function copyText(text) {
+        // Создаем временный элемент для копирования текста
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Промокод скопирован!');
+    }
+</script>
+<script>
+    // Выводим информацию о пользователе и его промокодах в консоль
+    console.log("Имя пользователя:", "{{ user_name }}");
+    console.log("Привязанные промокоды:");
+
+    {% for promocode in promocodes %}
+        console.log("Промокод:", "{{ promocode.code }}");  // Замените 'code' на атрибут вашего промокода
+    {% endfor %}
+</script>
+<!-- Add Swiper's JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>function resetButtonAndRedirect(url) {
+    // Сбрасываем состояние кнопки на другой странице
+    localStorage.setItem('startButtonDisabled', 'false');
+  
+    // Перенаправляем пользователя на указанную страницу
+    window.location.href = url;
+  }
+</script>
+<!-- Initialize Swiper -->
+<script>
+const swiper = new Swiper('.swiper-container', {
+spaceBetween: 0.1, // Устанавливаем расстояние между слайдами (в пикселях)
+navigation: {
+nextEl: '.custom-swiper-button-next',
+prevEl: '.custom-swiper-button-prev',
+},
+});
+</script>
+{% endblock %}

@@ -1,0 +1,638 @@
+@media (max-width: 1200px) {
+    html, body {
+        overflow-x: hidden; /* Убираем горизонтальный скролл */
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    html, body {
+        overflow-x: hidden; /* Убираем горизонтальный скролл */
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden; /* Убираем горизонтальный скролл */
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    html, body {
+     overflow-x: hidden; /* Скрывает элементы, вылазящие за пределы */
+        height: 100%;
+        margin: 0;
+        padding: 0;
+
+    }
+
+    .tree {
+        top: -35px;
+    }
+    
+    .tree1 {
+        content: url('../img/png/mtree.png'); /* Изменяем картинку для мобильных устройств */
+
+        height: auto;
+
+    }
+
+    .wrapper {
+        max-width: 100%; /* Задаем ширину 100% на мобильных устройствах */
+        padding: 0 10px; /* Уменьшаем отступы по бокам */
+        gap: 15px; /* Уменьшаем вертикальные отступы между блоками */
+        overflow: hidden; /* Скрывает элементы, вылазящие за пределы */
+    }
+    .wrapper-logo {
+        max-width: 100%; /* Задаем ширину 100% для мобильных устройств */
+        padding: 0 10px; /* Уменьшаем отступы по бокам */
+        position: relative; /* Делаем контейнер относительно позиционированным */
+        top: 1px; /* Поднимем секцию немного вверх */
+        margin-bottom: 70px;
+        display: flex;
+        justify-content: center; /* Выравнивание по центру */
+    }
+    
+    .header_logo {
+        width: 150px; /* Уменьшаем размер логотипа */
+        height: 150px; /* Уменьшаем высоту логотипа */
+        object-fit: contain; /* Убедимся, что логотип не искажается */
+    }
+    .logo_pic {
+        object-fit: contain;
+        max-width: 100%; /* Убедимся, что логотип адаптируется */
+    }
+    
+
+    .title-container {
+        margin-bottom: 20px; /* Уменьшаем отступ снизу */
+        top: -25px; /* Корректируем позиционирование заголовка */
+    }
+
+    .support_button {
+        font-size: 15px; /* Уменьшаем размер шрифта */
+        height: 48px;
+        width: 124px;
+        top: 40px;
+        right: 10px;
+    }
+
+    .form_calendar {
+        max-width: 320px; /* Пропорциональное уменьшение */
+        height: 185px;
+        border-radius: 12px;
+        margin-top: 20px;
+        margin-bottom: 60px;
+    }
+
+    .form_calendar_title {
+        left: 16px;
+        top: 16px;
+        font-size: 18px; /* Пропорциональное уменьшение */
+        line-height: 20px;
+    }
+
+    .counting_frame {
+        position: relative;
+        width: 55px;
+        height: 25px;
+        left: 251px; /* Центрируем относительно экрана */
+        right: 16px;
+        bottom: 5px;
+        border-radius: 10px;
+    }
+
+    .counting_frame_total {
+        position: relative;
+        font-size: 12px;
+        line-height: 17px;
+        margin-right: 2px;
+    }
+
+    .counting_frame_total_second {
+        font-size: 12px;
+    }
+
+    .input_hint {
+        width: 143px;
+        height: 11px;
+        margin: 0 auto;
+        left: auto; /* Центрируем */
+        right: 79px;
+        top: 80px;
+        font-size: 15px;
+        line-height: 11px;
+    }
+
+    .search .input_form {
+        width: 300px;
+        height: 50px;
+        left: auto; /* Центрируем */
+        right: 10px;
+        top: 125px;
+        padding: 5px 8px;
+        gap: 8px;
+        border-radius: 6px;
+    }
+
+    .button_use_promo {
+        width: 144px;
+        height: 50px;
+        left: auto; /* Центрируем */
+        right: 10px;
+        top: 125px;
+        font-size: 18px;
+        padding: 5px;
+        gap: 5px;
+        border-radius: 12px;
+    }
+
+    .button_use_promo:hover {
+        transform: scale(1.03); /* Слегка увеличиваем масштаб */
+    }
+
+    .faq-container {
+        width: 100%;
+    }
+
+    .faq-item {
+        max-width: 100%; /* Ограничивает ширину элемента */
+    }
+
+    .faq-question {
+        width: 100%;
+        word-wrap: break-word; /* Позволяет тексту переноса длинных слов */
+        font-size: 20px; /* Уменьшаем размер шрифта для мобильных */
+        line-height: 30px;
+    }
+
+    .faq-answer {
+        width: 100%;
+        word-wrap: break-word; /* Позволяет тексту переноса длинных слов */
+        font-size: 14px; /* Уменьшаем размер шрифта для мобильных */
+        line-height: 18px;
+    }
+
+    .faq-divider {
+        width: 100%; /* Делаем разделители на всю ширину */
+    }
+
+
+
+
+    .footer {
+        height: 200px; /* Уменьшаем высоту для мобильных */
+    }
+    .background-images .img2 {
+        top: -238px; /* Центрируем по вертикали */
+        left: 105%; /* Центрируем по горизонтали */
+        transform: translate(-50%, -50%); /* Для полного центрирования */
+        width: 75%;
+        transform: translate(-50%, -50%) rotate(35deg); /* Центрирование и поворот */
+    }
+        /* Стили для каждой картинки */
+    .background-images .img1 {
+        top: -1170px;
+        left: -42%;
+        width: 75%; /* Размер картинки */
+    }
+    
+    .background-images .img3 {
+        display: block; /* Отображаем */
+        top: -1500px;
+        left: 300px;
+        width: 75%;
+        transform: rotate(-35deg); 
+    }
+    .grid-cards-wrapper {
+        flex-direction: column;
+    }
+
+    .layout {
+        flex-direction: column;
+        padding: 0 32px;
+    }
+
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        gap: 18px; /* Расстояние между карточками */
+    }
+
+
+    /* На мобильных устройствах также задаем размер для карточек */
+    .card, .grid-item {
+        width: 360px;
+        height: 450px;
+
+    }
+    /* Первая карточка */
+    .card.first-card {
+        width: 360px;
+        height: 450px;
+        background: rgba(40, 75, 64, 0.3);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        position: relative; /* Для корректного позиционирования картинки */
+    }
+    .card.first-card .center-image{
+        margin-top: 0;
+        margin-left: 15%;
+    }
+        .card.first-card .button-gift{
+        margin-top: 0;
+        margin-left: 0;
+    }
+    /* Картинка по центру */
+    .center-image {
+        width: 277px; /* Увеличиваем размер до 200px */
+        height: 255px; /* Сохраняем пропорции */
+        display: block; /* Убираем лишние отступы вокруг картинки */
+        margin: 0 auto; /* Центрируем картинку */
+    }
+
+
+    .grid-container .grid-item:first-child .button {
+        position: relative; /* Позиционируем относительно родителя */
+        width: 100%; /* Занимает всю ширину контейнера */
+        max-width: 336px; /* Ограничение ширины кнопки */
+        margin: 10px auto 0 auto; /* Центрируем кнопку и даем отступ сверху */
+        top: auto; /* Убираем топовое позиционирование */
+        left: auto; /* Убираем левое позиционирование */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .frame-5 {
+        position: relative;
+        width: 82px; /* Уменьшаем ширину для мобильной версии */
+        height: 35px; /* Уменьшаем высоту */
+        margin: 10px; /* Отступ сверху и снизу */
+        left: 72%;
+        top: -7%;
+    }
+    /* Откроется через: */
+    .open-time-text {
+        position: relative;
+        left: calc(53% - 144px / 2 - 105.5px);
+        top: 10px;
+        font-size: 24px;
+
+    }
+    .grid-item .open-time-text {
+        font-size: 24px;
+    }
+
+    .wrapper-cards{
+        gap: 18px;
+    }
+    .cards-row {
+        display: flex;
+        flex-direction: column;
+        gap: 18px; /* Расстояние между карточками */
+        width: 100%;
+        align-items: center;
+        padding: 0 32px;
+        gap: 18px;
+    }
+    /* Третья и четвертая карточка */
+    .card.third-card, .card.fourth-card {
+        width: 100%; /* Размер аналогичный второй карточке */
+        height: 450px;
+
+    }
+    .center-image-third-card{
+        width: 156px;
+        height: auto;
+        display: block;
+        margin-left: 2px;
+        top: 41%;
+
+    }
+      .center-image-fourth-card{
+                  width: 206px;
+        height: auto;
+        display: block;
+        margin-left: 7px;
+        top: 40%;
+      }
+    .frame-5.third-card, .frame-5.fourth-card {
+        position: relative;
+        width: 130px;
+        height: 35px;
+        margin: 10px;
+        top: -7%;
+        left: 213px;
+
+    }
+    .open-time-text.third-card, .open-time-text.fourth-card{
+        position: relative;
+
+        top: 10px;
+        font-size: 24px;
+        width: 100%;
+
+    }
+    .card third-card{
+        display: none;
+    }
+    .swiper-container {
+        width: 80%; /* Устанавливаем ширину слайдера как 80% от родительского контейнера */
+        
+    }
+    .nav_header_button {
+        position: relative;
+        top: -125px;
+    }
+    .back_button{
+        /* Назад */
+    position: relative;
+    left: 5px;
+    top: -25px;
+    padding-left: 0px;
+
+    }
+    .swiper-container {
+        position: relative;
+        width: 100%; /* Растягиваем слайдер на весь экран */
+        height: 180px;
+
+    }
+
+    .image-slider__image {
+        width: 95%; /* Растягиваем изображение на весь доступный контейнер */
+        max-width: 230px;
+    }
+
+    .custom-swiper-button-prev, .custom-swiper-button-next {
+        width: 100%px; /* Еще меньше кнопки */
+
+    }
+    .custom-swiper-navigation {
+        margin-bottom: 50px; /* Меньше отступ для мобильных экранов */
+    }
+    
+    .snow-pic {
+        position: relative;
+        padding-top: 100px;
+    }
+    .content-section-wrapper{
+        position: relative;
+        padding-top: 5%;
+        width: 100%;
+        margin-bottom: 50px;
+    }
+    .wrapper-roul {
+
+        padding: 10px;
+
+    }
+
+    .roulette_title {
+        font-size: 20px; /* Еще меньше размер текста на самых маленьких экранах */
+        line-height: 1.3;
+    }
+
+    .start {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+    .break-line {
+        display: block; /* Переносим слово "куда" на новую строку */
+        margin-top: 5px;
+    }
+    #animation-container {
+        height: 100vh; /* Высота для маленьких экранов */
+    }
+
+    #animation-container img {
+        width: 200%; /* Растягиваем по ширине */
+        height: 200%; /* Растягиваем по высоте */
+
+    }
+    .alert {
+        width: 25%;
+        top: 30%;
+        padding: 5px;
+    }
+
+    
+        .small.icon {
+           width: 15%;
+    margin-left: 0;
+    padding-left: 0;
+    top: 22px;
+    left: 4px;
+
+        }
+    .icon.small-icon {
+        position: relative; /* Позиционирование относительно нормального потока документа */
+        z-index: 1;  /* Повышаем приоритет для иконки */
+        margin-top: 10px;  /* Задайте нужный отступ для опускания вниз */
+
+        
+    }
+     .bottom-frame_gift {
+        width: 100%;
+        left: 2px;
+        bottom: 2px;
+        top: -52px;
+    }
+    .app .start {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        /* gap: 10px; */
+        position: relative;
+        width: 100%;
+        height: 56px;
+        left: 2px;
+        top: 69px;
+        background: #F03B24;
+        border-radius: 12px;
+        font-family: 'Geist', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        letter-spacing: -0.0921578px;
+        color: #F8F5E2;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+.content-section-wrapper {
+        position: relative;
+        padding-top: 5%;
+        width: 100%;
+        margin-bottom: 93px;
+    }
+    .button-gift{
+        font-size: 20px;
+        margin-left: 17px;
+    }
+    .icon-roulette {
+
+    margin-left: 141px;
+
+}
+.bottom-text_gift {
+font-family: 'Geist';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #F8F5E2;
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    width: 63%;
+    left: 73px;
+    
+}
+.grid-container .grid-item:nth-child(1) .center-image {
+        width: 41%;
+        height: auto;
+        display: block;
+        margin-top: -17px;
+        position: relative;
+        left: 3px;
+}
+.grid-container .grid-item:nth-child(2) .center-image {
+    width: 61%;
+    height: auto;
+    display: block;
+    margin-top: -17px;
+    position: relative;
+    left: 12px;
+}
+.grid-container .grid-item:nth-child(3) .center-image {
+        width: 47%;
+        height: auto;
+        left: 3px;
+        margin-top: -17px;
+}
+.grid-container .grid-item:nth-child(4) .center-image  {
+        width: 204px;
+        height: auto;
+        margin-top: -17px;
+        margin-left: 83px;
+}
+.grid-container .grid-item:nth-child(3) .button-gift {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 336px;
+    height: 56px;
+    background: #F03B24;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Geist';
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 12px;
+    margin-left: 20px;
+    margin-top: 365px;
+    margin-left: 11px;
+}
+.grid-container .grid-item:nth-child(4) .button-gift {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 336px;
+    height: 56px;
+    background: #F03B24;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Geist';
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 12px;
+    margin-left: -81px;
+    cursor: pointer;
+    margin-top: 360px;
+}
+
+.grid-container .grid-item:nth-child(1) .button-gift {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 336px;
+    height: 56px;
+    background: #F03B24;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Geist';
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 12px;
+ 
+    cursor: pointer;
+    margin-top: 305px;
+    margin-left: 14px;
+}
+.grid-container .grid-item:nth-child(2) .button-gift {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 336px;
+    height: 56px;
+    background: #F03B24;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Geist';
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 12px;
+ 
+    cursor: pointer;
+                margin-top: 365px;
+        margin-left: 14px;
+}
+.grid-container .grid-item:nth-child(3) .button-gift {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 336px;
+    height: 56px;
+    background: #F03B24;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Geist';
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 12px;
+ 
+    cursor: pointer;
+        margin-top: 344px;
+        margin-left: 14px;
+}
+}
+        
+        
+
+@media (max-width: 320px) {
+    html, body {
+        overflow-x: hidden; /* Убираем горизонтальный скролл */
+        margin: 0;
+        padding: 0;
+    }
+}
