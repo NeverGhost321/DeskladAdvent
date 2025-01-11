@@ -1,0 +1,143 @@
+
+
+.app {
+  position: relative;
+  width: 105%; /* Растягиваем .app на всю ширину */
+  height: 244px;
+  border: 2px solid #334F47; /* Новый цвет рамки */
+  padding: 10px; /* Уменьшено пространство между рамкой и картинкой */
+
+}
+
+.app .pointer-down {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: -5%;
+  transform: translate3d(-50%, -25px, 0);
+  height: 50px;
+  filter: drop-shadow(0 0 20px rgba(230, 174, 174, 0.3));
+}
+.app .pointer-up {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+
+  transform: translate3d(-50%, -25px, 0);
+  top: 105%;
+  height: 50px;
+  filter: drop-shadow(0 0 20px rgba(230, 174, 174, 0.3));
+}
+.app .vertical-line {
+  position: absolute;
+  z-index: 0; /* Убедитесь, что линия находится ниже стрелок */
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 2px; /* Толщина линии */
+  height: 100%; /* Высота линии, чтобы покрыть всю область */
+  background-color: rgba(0, 191, 255, 0.5); /* Цвет линии */
+}
+
+.app .scope {
+  overflow: hidden;
+  margin-bottom: 63px;
+}
+
+.app .scope .list {
+  position: relative;
+  display: inline-flex;
+  left: 0;
+  transform: translate3d(0, 0, 0);
+  list-style: none;
+  transition: 5s cubic-bezier(0.21, 0.53, 0.29, 0.99);
+}
+
+.app .scope .list__item {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 252px;
+  height: 200px;
+  opacity: 0.5;
+  transition: 0.3s ease;
+}
+
+.app .scope .list__item:nth-child(2n) {
+
+}
+
+.app .scope .list__item.active {
+  opacity: 1;
+  animation: swing 1.5s infinite ease-in-out; /* Анимация покачивания только для активного элемента */
+}
+
+@keyframes swing {
+  0%, 100% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.2) rotate(-2deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(2deg);
+  }
+  75% {
+    transform: scale(1.2) rotate(-2deg);
+  }
+}
+
+.app .scope .list__item img {
+  width: 80%;
+  height: 80%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: 0.3s ease;
+}
+
+.app .start {
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+position: relative;
+width: 240px;
+height: 56px;
+left: calc(50% - 240px/2);
+top: 20px;
+
+background: #F03B24;
+border-radius: 12px;
+
+
+
+
+font-family: 'Geist',sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+text-align: center;
+letter-spacing: -0.0921578px;
+
+color: #F8F5E2;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+}
+
+.app .start:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Desklad Advent
+{% endblock %}
+
+{% block extra_styles %}
+
+{% endblock %}
+
+{% block content %}
+<header class="header">
+        
+    <div class="tree">
+<img src="{% static 'img/header/header.png' %}" alt="tree" class="tree1">
+</div>
+
+    <a href="https://t.me/Sovetnik1000" target="_blank">
+        <div class="nav_header_button">
+            <button class="support_button">Поддержка</button>
+        </div>
+    </a>
+    
+
+    <div class="wrapper-logo">
+        <div class="header_logo">
+            <a href="/" class="header_logo_link">
+                <img src="{% static 'img/svg/logo.svg'%}" alt="LOGO" class="logo_pic">
+            </a>
+        </div>
+    </div>
+</header>
+
+
+<!-- Контентная секция -->
+<div class="content-section">
+
+    <section class="intro">
+        <div class="wrapper">
+            <div class="title-container">
+                <h1 class="intro_title">
+                    <p>Получите 7 подарков</p>
+                    <p>для совершенствования</p>
+                    <p>своего трейдинга</p>
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="form_calendar-wrapper">
+        <div class="wrapper">
+            <div class="form_calendar">
+            <h1 class="form_calendar_title">Календарей осталось</h1>
+                <div class="counting_frame">
+                    <h1 class="counting_frame_total">{{ total_promocodes }}</h1>
+                    <h2 class="counting_frame_total_second">/{{ max_promocodes }}</h2>
+                </div>
+            <form id="promocode_form" method="POST" action="{% url 'promocode_login' %}">
+                {% csrf_token %}
+                <div class="search">
+                    <p class="input_hint">Есть промокод?</p>
+                    <input id="promocode_input" class="input_form" type="text" placeholder="xxx-xxx-xxx" name="input_form" required>
+                    <button class="button_use_promo" type="submit">Использовать</button>
+                </div>
+            </form>
+            
+            <!-- Проверка наличия сообщений об ошибке -->
+            <div id="messages"></div>
+        </div>
+
+    </div>
+    </section>
+    
+    <section class="FAQ-text">
+        <div class="wrapper">
+            <div class="FAQ-text">
+            <h1 class="faq_text">FAQ</h1>
+        </div>
+        </div>
+    </section>
+    
+<section class="faq">
+<div class="wrapper">
+    <div class="faq-container">
+        <div class="faq-divider"></div>
+        <dl class="faq-item">
+            <dt class="faq-question">Сколько календарей я могу купить?</dt>
+            <dd class="faq-answer">Вы можете купить неограниченное количество календарей.</dd>
+        </dl>
+        <div class="faq-divider"></div>
+        <dl class="faq-item">
+            <dt class="faq-question">Какова стоимость адвент календаря?</dt>
+            <dd class="faq-answer">Стоимость одного календаря 150$</dd>
+        </dl>
+        <div class="faq-divider"></div>
+        <dl class="faq-item">
+            <dt class="faq-question">Какое количество подарков в адвент календаре?</dt>
+            <dd class="faq-answer">Он включает в себя 7 гарантированных подарков.</dd>
+        </dl>
+        <div class="faq-divider"></div>
+        <dl class="faq-item">
+            <dt class="faq-question">Какие методы оплаты есть?</dt>
+            <dd class="faq-answer">Вы можете оплатить криптовалютой или картой любого банка мира.</dd>
+        </dl>
+        <div class="faq-divider"></div>
+    </div>
+</div>
+</section>
+
+</div>
+
+<!-- Футер -->
+<footer class="footer">
+    
+    <div class="snow-pic"></div>
+</footer>
+<div class="background-images">
+    <img src="{% static 'img/png/vetka1.png'%}" alt="Background Image 1" class="bg-image img1">
+    <img src="{% static 'img/png/vetka2.png'%}" alt="Background Image 2" class="bg-image img2">
+    <img src="{% static 'img/png/mvetka.png'%}" alt="Background Image 3" class="bg-image img3">
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.getElementById('promocode_input').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/[^0-9a-zA-Z]/g, '');  // Убираем все нецифровые и неалфавитные символы
+        let formattedValue = value;
+    
+        // Добавляем дефис после каждых 3 символов
+        if (formattedValue.length > 3 && formattedValue.length <= 6) {
+            formattedValue = formattedValue.slice(0, 3) + '-' + formattedValue.slice(3);
+        } else if (formattedValue.length > 6) {
+            formattedValue = formattedValue.slice(0, 3) + '-' + formattedValue.slice(3, 6) + '-' + formattedValue.slice(6, 9);
+        }
+    
+        e.target.value = formattedValue;  // Обновляем значение в поле
+    });
+    $(document).ready(function() {
+        $('#promocode_form').on('submit', function(e) {
+            e.preventDefault();  // Отменяем стандартную отправку формы
+    
+            // Считываем данные из формы
+            var promocode = $('#promocode_input').val();
+    
+            // Отправляем запрос через AJAX без CSRF
+            $.ajax({
+                url: '/userpromocode/',  // URL обработчика
+                method: 'POST',
+                data: {
+                    'input_form': promocode,
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()  // Добавляем CSRF токен
+                },
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href = "{% url 'gift' %}";
+                    } else {
+                        $('#messages').html('<div class="alert show-message">' + response.message + '</div>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#messages').html('<div class="alert show-message">Произошла ошибка. Попробуйте еще раз.</div>');
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}
